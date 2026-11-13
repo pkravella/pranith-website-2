@@ -1,0 +1,8 @@
+# This repo is public and serves GitHub Pages.
+# Ignore everything, then allow back only what should be published.
+# (.claude/, .wrangler/, analytics/, README.md, .DS_Store etc. all stay local.)
+/*
+!/.gitignore
+!/index.html
+!/assets/
+.DS_Store

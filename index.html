@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pranith Ravella · Projects</title>
+<meta name="description" content="Pranith Ravella&#x27;s portfolio: systems, GPU, infrastructure and ML projects with live demos. CS and Statistics at Purdue.">
+<meta property="og:title" content="Pranith Ravella · Projects">
+<meta property="og:description" content="Pranith Ravella&#x27;s portfolio: systems, GPU, infrastructure and ML projects with live demos. CS and Statistics at Purdue.">
+<meta property="og:type" content="website">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f2ece3;--card:#fffcf7;--ink:#221d18;--ink2:#4a4138;--mute:#6e6458;
+  --line:#e7dfd3;--line2:#d4c8b7;--soft:#f8f3eb;
+  --accent:#7a4b26;--accent-ink:#5e3a1d;--accent-soft:#f4eadd;--accent-line:#e3d2bd;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:80px 32px 56px}
+
+/* Header */
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:64px}
+header.top .who{flex:1 1 480px}
+h1{margin:0 0 14px;font-size:clamp(40px,6vw,60px);line-height:1.02;font-weight:700;letter-spacing:-.035em}
+.lede{margin:0;font-size:18px;line-height:28px;color:var(--mute);max-width:600px}
+nav.contact{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:0 16px;border-radius:10px;font-size:14px;font-weight:500;border:1px solid var(--line2);background:var(--card);color:var(--ink);transition:border-color .15s,background-color .15s}
+.btn:hover{text-decoration:none;border-color:#ab9c87}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.btn.primary:hover{background:var(--accent-ink);border-color:var(--accent-ink)}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+.btn.dark:hover{background:#3a3129;border-color:#3a3129}
+
+/* Section headings */
+h2{margin:0 0 18px;font-size:22px;line-height:1.3;font-weight:650;letter-spacing:-.015em}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 20px;margin-bottom:16px}
+.sec-head h2{margin:0}
+.hint{display:none;margin:0;font-size:14px;color:var(--mute);align-items:center;gap:14px}
+.js .hint{display:flex}
+.expand-all{appearance:none;border:0;background:none;padding:4px 2px;font:inherit;font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;border-radius:4px}
+.expand-all:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* Projects: clickable boxes */
+.proj-list{display:flex;flex-direction:column;gap:12px}
+.proj{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px rgba(60,40,20,.04);transition:border-color .2s,box-shadow .2s}
+.proj-head{position:relative;display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr) auto;grid-template-areas:"name sum cue" "epi sum cue";column-gap:36px;row-gap:4px;align-items:center;padding:22px 24px}
+.js .proj-head{cursor:pointer}
+.js .proj:hover{border-color:var(--line2);box-shadow:0 10px 28px -14px rgba(60,40,20,.22)}
+.js .proj.open{border-color:var(--line2)}
+.proj-name{grid-area:name;display:flex;flex-wrap:nowrap;align-items:center;gap:10px;min-width:0}
+.proj-name h3{min-width:0}
+.proj-name .tag{flex:none}
+h3{margin:0;font-size:20px;line-height:1.25;font-weight:650;letter-spacing:-.015em}
+.proj-toggle{appearance:none;border:0;background:none;padding:0;margin:0;font:inherit;color:inherit;letter-spacing:inherit;text-align:left;cursor:pointer}
+.proj-toggle::after{content:"";position:absolute;inset:0;border-radius:15px}
+.proj-toggle:focus-visible{outline:none}
+.proj-toggle:focus-visible::after{outline:2px solid var(--accent);outline-offset:-1px}
+.proj-head .epi{grid-area:epi;margin:0;font-size:14px;line-height:20px;font-weight:500;color:var(--accent-ink)}
+.proj-head .sum{grid-area:sum;margin:0;font-size:15px;line-height:24px;color:var(--ink2);max-width:62ch}
+.cue{grid-area:cue;display:none;align-items:center;gap:6px;height:36px;padding:0 12px 0 14px;border-radius:999px;border:1px solid var(--line2);background:var(--card);font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;transition:background-color .2s,border-color .2s,color .2s}
+.js .cue{display:inline-flex}
+.cue svg{transition:transform .3s var(--ease)}
+.cue-close{display:none}
+.proj:hover .cue{background:var(--ink);border-color:var(--ink);color:#fff}
+.proj.open .cue-open{display:none}
+.proj.open .cue-close{display:inline}
+.proj.open .cue svg{transform:rotate(180deg)}
+
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;line-height:18px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--soft);border:1px solid var(--line);color:var(--ink2);white-space:nowrap}
+.tag.live{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent-ink)}
+.tag.live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+.js .proj-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s var(--ease)}
+.js .proj.open .proj-panel{grid-template-rows:1fr}
+.proj-panel-in{min-height:0;overflow:hidden}
+.js .proj:not(.open) .proj-panel-in{visibility:hidden;transition:visibility 0s .34s}
+.proj-detail{margin:0 24px;padding:24px 0 26px;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:36px;align-items:start}
+.proj-text{display:flex;flex-direction:column;gap:20px;min-width:0}
+.proj-media{min-width:0}
+.proj-detail.no-media{grid-template-columns:minmax(0,1fr)}
+.proj-detail.no-media .proj-media{display:none}
+.proj-detail.no-media .proj-text{max-width:760px}
+
+/* Screenshot frame */
+.media-link{display:block;color:inherit;border-radius:12px}
+.media-link:hover{text-decoration:none}
+.media{background:#f0e9de;border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.media-link:hover .media{border-color:#ab9c87}
+.chrome{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#e9e0d3;border-bottom:1px solid var(--line)}
+.chrome i{width:9px;height:9px;border-radius:50%;background:#cdbfac}
+.chrome span{margin-left:8px;font:12px var(--mono);color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.shot{aspect-ratio:16/9;position:relative;display:flex;align-items:center;justify-content:center}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.shot .ph{display:none;margin:0;padding:24px;text-align:center;font-size:14px;line-height:21px;color:var(--mute)}
+.shot .ph small{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.shot.empty .ph{display:block}
+
+/* Shared detail styles (projects + experience) */
+.nums{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.nums li{padding:10px 12px;border-radius:10px;background:var(--soft);border:1px solid var(--line);font-size:13px;line-height:18px;color:var(--mute)}
+.nums b{display:block;margin-bottom:2px;font-size:19px;line-height:26px;font-weight:650;letter-spacing:-.01em;color:var(--ink)}
+.steps{list-style:none;counter-reset:step;margin:0;padding:0;display:flex;flex-direction:column}
+.steps li{counter-increment:step;position:relative;padding:0 0 14px 36px;font-size:14px;line-height:22px;color:var(--ink2)}
+.steps li::before{content:counter(step);position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;border:1px solid var(--line2);background:var(--card);display:grid;place-items:center;font-size:11px;font-weight:600;line-height:1;color:var(--ink2)}
+.steps li::after{content:"";position:absolute;left:11px;top:26px;bottom:4px;width:1px;background:var(--line)}
+.steps li:last-child{padding-bottom:0}
+.steps li:last-child::after{display:none}
+.steps b,.dec b{color:var(--ink);font-weight:600}
+.dec{margin:0;padding:12px 16px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 10px 10px 0;font-size:14px;line-height:22px;color:var(--ink2)}
+.stack{margin:0;font-size:13px;line-height:20px;color:var(--mute)}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+
+/* Experience */
+section.work-sec{margin-top:72px}
+.grid.work-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:16px}
+.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px rgba(60,40,20,.04)}
+.body{padding:24px;display:flex;flex-direction:column;gap:16px;flex:1}
+.work h3{font-size:18px}
+.work .meta{margin:-10px 0 0;font-size:13px;line-height:20px;color:var(--mute)}
+.meta-where,.meta-when{display:block}
+.work .sum{margin:0;font-size:15px;line-height:24px}
+
+/* About / education / skills */
+.info{margin-top:72px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:36px;display:flex;flex-wrap:wrap;gap:40px 56px}
+.info>div{flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.info>div.about{flex:2 1 420px}
+.info h4{margin:0;font-size:15px;line-height:22px;font-weight:650;color:var(--ink)}
+.info .gap{margin-top:18px}
+.info p{margin:0;font-size:15px;line-height:25px;color:var(--ink2)}
+.info p b{color:var(--ink);font-weight:600}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.chips li{padding:3px 10px;border-radius:6px;background:var(--soft);border:1px solid var(--line);font-size:13px;line-height:20px;color:var(--ink2)}
+
+footer{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);font-size:14px;color:var(--mute);display:flex;flex-wrap:wrap;gap:20px}
+footer a{color:var(--ink2)}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:960px){
+  .proj-head{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name cue" "epi cue" "sum sum";row-gap:4px}
+  .proj-head .sum{margin-top:8px}
+  .proj-detail{grid-template-columns:minmax(0,1fr);gap:24px}
+}
+@media (max-width:600px){
+  .wrap{padding:48px 16px 40px}
+  header.top{margin-bottom:48px}
+  .lede{font-size:17px;line-height:26px}
+  .proj-head{grid-template-columns:minmax(0,1fr);grid-template-areas:"name" "epi" "sum" "cue";padding:20px 18px}
+  .cue{justify-self:start;margin-top:12px}
+  .proj-detail{margin:0 18px;padding:20px 0 22px}
+  .nums{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .info{padding:24px 20px}
+  section.work-sec,.info{margin-top:56px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<div class="who">
+<h1>Pranith Ravella</h1>
+<p class="lede">Things I've built that you can open and click around in <br> CS and Statistics at Purdue, May 2028</p>
+</div>
+<nav class="contact" aria-label="Contact">
+<a class="btn primary" href="assets/resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+<a class="btn" href="https://github.com/pkravella" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+<a class="btn" href="https://www.linkedin.com/in/pranith-ravella/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+<a class="btn" href="mailto:pranithravella@gmail.com">Email</a>
+</nav>
+</header>
+
+<main>
+<section aria-labelledby="projects-h">
+<div class="sec-head"><h2 id="projects-h">Projects</h2><p class="hint">Click a project to see how it works.<button type="button" class="expand-all">Expand all</button></p></div>
+<div class="proj-list">
+<article class="proj" id="cuda">
+<div class="proj-head">
+<div class="proj-name"><h3><button type="button" class="proj-toggle" aria-expanded="false" aria-controls="cuda-panel">CUDA LLM Inference Engine</button></h3><span class="tag">Project</span></div>
+<p class="epi">LLM inference from scratch</p>
+<p class="sum">An LLM inference engine I wrote in CUDA that decodes 2.7x faster than a PyTorch baseline.</p>
+<span class="cue" aria-hidden="true"><span class="cue-open">Show details</span><span class="cue-close">Hide details</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</div>
+<div class="proj-panel" id="cuda-panel"><div class="proj-panel-in"><div class="proj-detail">
+<div class="proj-text">
+<ul class="nums"><li><b>150</b> tokens / sec</li><li><b>2.7x</b> faster than PyTorch</li><li><b>790 → 4,234</b> concurrent sequences</li><li><b>54%</b> fewer cache blocks on shared prefixes</li><li><b>2.4x</b> throughput vs static batching</li></ul>
+<ol class="steps"><li><b>Requests in.</b> Tested on an 80k request ShareGPT trace, so the engine is measured on real conversation lengths instead of made up ones</li><li><b>Continuous batching.</b> A scheduler adds new requests to the running batch as soon as others finish, instead of waiting for the whole batch to drain. That gets 2.4x the throughput of static batching</li><li><b>Paged KV cache.</b> The KV cache is split into blocks handed out by an allocator keyed on token hashes, so prompts that share a prefix share the same blocks. That means 54% fewer cache blocks on shared prefixes</li><li><b>CUDA decode.</b> The decode step runs on my own CUDA code, generating 150 tokens a second, 2.7x faster than a PyTorch baseline</li></ol>
+<p class="dec"><b>Key decision.</b> Keying cache blocks on token hashes let shared prefixes reuse memory, which raised concurrent sequences from 790 to 4,234 and used 54% fewer cache blocks.</p>
+<p class="stack">CUDA · C++ · Python · PyTorch · Docker · Bash · AWS EC2</p>
+</div>
+<div class="proj-media">
+<div class="media">
+<div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>local run</span></div>
+<div class="shot"><img src="assets/cuda.png" alt="Terminal capture or results chart for CUDA LLM Inference Engine" decoding="async" onerror="this.closest('.proj-detail').classList.add('no-media');this.remove()"><p class="ph">Terminal capture or results chart for CUDA LLM Inference Engine<br><small>add assets/cuda.png</small></p></div>
+</div>
+</div>
+</div></div></div>
+</article>
+<article class="proj" id="kubepilot">
+<div class="proj-head">
+<div class="proj-name"><h3><button type="button" class="proj-toggle" aria-expanded="false" aria-controls="kubepilot-panel">KubePilot</button></h3><span class="tag live">Live demo</span></div>
+<p class="epi">Cost aware Kubernetes scheduler</p>
+<p class="sum">A Kubernetes scheduler for Amazon EKS that puts each pod on the cheapest node that can still meet its SLOs.</p>
+<span class="cue" aria-hidden="true"><span class="cue-open">Show details</span><span class="cue-close">Hide details</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</div>
+<div class="proj-panel" id="kubepilot-panel"><div class="proj-panel-in"><div class="proj-detail">
+<div class="proj-text">
+<ul class="nums"><li><b>18%</b> lower compute cost vs the default scheduler</li><li><b>43–68%</b> less cross-AZ network traffic</li><li><b>13% → 72%</b> safe Spot usage</li><li><b>5</b> scoring signals</li></ul>
+<ol class="steps"><li><b>Pod arrives.</b> A new pod needs a node on an Amazon EKS cluster, and every node that can fit it is a candidate</li><li><b>Go scoring plugin.</b> A scheduler plugin written in Go ranks every candidate node on five signals: compute cost, network locality, latency, Spot risk and utilization</li><li><b>Per-workload weights.</b> Teams decide how much each signal matters for their workload by setting weights in a custom resource, so different workloads can trade cost against latency differently</li><li><b>Placement.</b> The pod goes to the cheapest node that still meets its SLOs, with a record of why that node won. Overall that cut compute cost 18% vs the default scheduler and cross-AZ traffic by 43–68%</li></ol>
+<p class="dec"><b>Key decision.</b> Scoring Spot risk alongside cost is what made Spot safe to use: safe Spot usage went from 13% to 72%.</p>
+<p class="stack">Go · Kubernetes · AWS EKS · EC2 · Redis · Docker · JavaScript</p>
+<div class="links"><a class="btn dark" href="https://pkravella.github.io/kubepilot-demo/" target="_blank" rel="noopener">See the live demo <span aria-hidden="true">↗</span></a></div>
+</div>
+<div class="proj-media">
+<a class="media-link" href="https://pkravella.github.io/kubepilot-demo/" target="_blank" rel="noopener" aria-label="Open KubePilot"><div class="media">
+<div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>pkravella.github.io/kubepilot-demo/</span></div>
+<div class="shot"><img src="assets/kubepilot.png" alt="Screenshot of the KubePilot demo" decoding="async" onerror="this.closest('.proj-detail').classList.add('no-media');this.remove()"><p class="ph">Screenshot of the KubePilot demo<br><small>add assets/kubepilot.png</small></p></div>
+</div></a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" id="eventshield">
+<div class="proj-head">
+<div class="proj-name"><h3><button type="button" class="proj-toggle" aria-expanded="false" aria-controls="eventshield-panel">EventShield</button></h3><span class="tag live">Live demo</span></div>
+<p class="epi">Shadow testing for Kafka</p>
+<p class="sum">Replays real Kafka traffic through the current build and the new one, then flags anything the new one does differently.</p>
+<span class="cue" aria-hidden="true"><span class="cue-open">Show details</span><span class="cue-close">Hide details</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</div>
+<div class="proj-panel" id="eventshield-panel"><div class="proj-panel-in"><div class="proj-detail">
+<div class="proj-text">
+<ul class="nums"><li><b>1M</b> events end to end in ~25s on EKS + MSK</li><li><b>79k</b> events / sec replayed</li><li><b>10,000 / 10,000</b> planted regressions caught (1% of events)</li><li><b>0</b> false alarms</li><li><b>6 / 6</b> escape attempts blocked</li></ul>
+<ol class="steps"><li><b>Sample real traffic.</b> Real Kafka events are sampled and replayed at 79k events a second, about 25 seconds for 1M events end to end on EKS + MSK</li><li><b>Two builds side by side.</b> The current build and the candidate build get the exact same events, so any difference in what they do comes from the code change</li><li><b>Compare every side effect.</b> Their side effects are compared event by event, and any difference fails the deploy gate. In testing it caught all 10,000 planted regressions with 0 false alarms</li><li><b>Isolated per run.</b> Each run gets its own locked down Kubernetes namespace. A probe pod tries 6 ways to break out and is blocked every time, while still reaching the one broker it should</li></ol>
+<p class="dec"><b>Key decision.</b> Every run is sandboxed: a probe pod tries to break out and fails all 6 escape attempts, while still reaching the one broker it should.</p>
+<p class="stack">Go · Kafka · AWS MSK · Kubernetes · EKS · ClickHouse · Redis · PostgreSQL · Terraform · Next.js</p>
+<div class="links"><a class="btn dark" href="https://pkravella.github.io/eventshield-demo/" target="_blank" rel="noopener">See the live demo <span aria-hidden="true">↗</span></a></div>
+</div>
+<div class="proj-media">
+<a class="media-link" href="https://pkravella.github.io/eventshield-demo/" target="_blank" rel="noopener" aria-label="Open EventShield"><div class="media">
+<div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>pkravella.github.io/eventshield-demo/</span></div>
+<div class="shot"><img src="assets/eventshield.png" alt="Screenshot of the EventShield demo" decoding="async" onerror="this.closest('.proj-detail').classList.add('no-media');this.remove()"><p class="ph">Screenshot of the EventShield demo<br><small>add assets/eventshield.png</small></p></div>
+</div></a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" id="dlq">
+<div class="proj-head">
+<div class="proj-name"><h3><button type="button" class="proj-toggle" aria-expanded="false" aria-controls="dlq-panel">DLQ Autopilot</button></h3><span class="tag live">Live demo</span></div>
+<p class="epi">AI assisted Kafka recovery</p>
+<p class="sum">When Kafka messages fail, this figures out why and gets them safely replayed.</p>
+<span class="cue" aria-hidden="true"><span class="cue-open">Show details</span><span class="cue-close">Hide details</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</div>
+<div class="proj-panel" id="dlq-panel"><div class="proj-panel-in"><div class="proj-detail">
+<div class="proj-text">
+<ul class="nums"><li><b>92.9%</b> root cause correct</li><li><b>100%</b> repair correct</li><li><b>0</b> unsafe recommendations</li><li><b>296K</b> events / sec into ClickHouse (1M records)</li><li><b>16</b> read-only MCP tools</li></ul>
+<ol class="steps"><li><b>Dead letter queue.</b> Failed messages from the dead letter queue are grouped into incidents and loaded into ClickHouse at 296K events a second, tested on 1M records</li><li><b>AI investigator.</b> A model works out why each incident happened using 16 read-only MCP tools covering Kafka, schemas, deploys and logs. It gets the root cause right 92.9% of the time</li><li><b>Gated fix.</b> The model can only suggest a fix. Go code checks the suggested fix, a sandbox proves it works, and a person approves it</li><li><b>Safe replay.</b> Only after all three checks pass does anything replay to production. So far there have been 0 unsafe recommendations</li></ol>
+<p class="dec"><b>Key decision.</b> The model can only suggest a fix, never apply one. So far that means zero unsafe recommendations.</p>
+<p class="stack">Go · Python · Kafka · ClickHouse · Kubernetes · Redis · Docker · MCP</p>
+<div class="links"><a class="btn dark" href="https://pkravella.github.io/dlq-demo/" target="_blank" rel="noopener">See the live demo <span aria-hidden="true">↗</span></a></div>
+</div>
+<div class="proj-media">
+<a class="media-link" href="https://pkravella.github.io/dlq-demo/" target="_blank" rel="noopener" aria-label="Open DLQ Autopilot"><div class="media">
+<div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>pkravella.github.io/dlq-demo/</span></div>
+<div class="shot"><img src="assets/dlq.png" alt="Screenshot of the DLQ Autopilot demo" decoding="async" onerror="this.closest('.proj-detail').classList.add('no-media');this.remove()"><p class="ph">Screenshot of the DLQ Autopilot demo<br><small>add assets/dlq.png</small></p></div>
+</div></a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" id="mandate">
+<div class="proj-head">
+<div class="proj-name"><h3><button type="button" class="proj-toggle" aria-expanded="false" aria-controls="mandate-panel">Mandate</button></h3><span class="tag">Open source</span></div>
+<p class="epi">Least privilege for AI agents</p>
+<p class="sum">Gives an AI coding agent only the GitHub access its current task needs, and checks every call while it runs.</p>
+<span class="cue" aria-hidden="true"><span class="cue-open">Show details</span><span class="cue-close">Hide details</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</div>
+<div class="proj-panel" id="mandate-panel"><div class="proj-panel-in"><div class="proj-detail">
+<div class="proj-text">
+<ul class="nums"><li><b>99.8%</b> less access than a developer&#x27;s token</li><li><b>87.1%</b> less access than a one-repo token</li></ul>
+<ol class="steps"><li><b>Task.</b> A developer gives the agent a task, e.g. &quot;Fix issue #42&quot;</li><li><b>Model proposes a mandate.</b> A model reads the task and drafts the access the agent needs for it: the repo, branches, files and actions the agent gets, and when they expire</li><li><b>Code verifies it.</b> Checked against the org&#x27;s Cedar policy and the requester&#x27;s GitHub permissions; state machines prove path patterns stay in bounds. The agent gets nothing until every check passes</li><li><b>Enforced at runtime.</b> A one-repo GitHub App token and an MCP proxy that checks every call&#x27;s repo, branch, paths and destination, logging each decision. That&#x27;s 99.8% less access than a developer&#x27;s token</li></ol>
+<p class="dec"><b>Key decision.</b> A model proposes the permissions, but plain code has to prove they are in bounds before the agent gets anything.</p>
+<p class="stack">TypeScript · Node.js · MCP · Cedar · GitHub Apps · Docker</p>
+<div class="links"><a class="btn dark" href="https://github.com/pkravella/mandate" target="_blank" rel="noopener">See it on GitHub <span aria-hidden="true">↗</span></a></div>
+</div>
+<div class="proj-media">
+<a class="media-link" href="https://github.com/pkravella/mandate" target="_blank" rel="noopener" aria-label="Open Mandate"><div class="media">
+<div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>github.com/pkravella/mandate</span></div>
+<div class="shot"><img src="assets/mandate.png" alt="Terminal capture or results chart for Mandate" decoding="async" onerror="this.closest('.proj-detail').classList.add('no-media');this.remove()"><p class="ph">Terminal capture or results chart for Mandate<br><small>add assets/mandate.png</small></p></div>
+</div></a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" id="reprobe">
+<div class="proj-head">
+<div class="proj-name"><h3><button type="button" class="proj-toggle" aria-expanded="false" aria-controls="reprobe-panel">Reprobe</button></h3><span class="tag">Open source</span></div>
+<p class="epi">Regression tests for agent attacks</p>
+<p class="sum">Finds prompt injections that break a coding agent, cuts them down to the smallest version that still works, and turns them into CI tests.</p>
+<span class="cue" aria-hidden="true"><span class="cue-open">Show details</span><span class="cue-close">Hide details</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</div>
+<div class="proj-panel" id="reprobe-panel"><div class="proj-panel-in"><div class="proj-detail">
+<div class="proj-text">
+<ul class="nums"><li><b>23–33x</b> as many hits as random search once a bug is found</li><li><b>4</b> signals watched per run</li></ul>
+<ol class="steps"><li><b>Sealed sandbox.</b> Coding agents like Claude Code run in a sealed Docker sandbox, so an attack that works can&#x27;t touch anything outside it</li><li><b>Fuzz the inputs.</b> Rewrites text such as a README to make them leak secrets or run bad commands; the search favors inputs that cause new behavior. Once a bug is found, that gets 23–33x as many hits as random search</li><li><b>Watch four ways.</b> Agent output, strace, file diff and network gateway, with rule-based checks instead of a model as judge, so every result is checked the same way each run</li><li><b>Shrink and export.</b> A Wilson interval checks that an attack reproduces reliably, delta debugging shrinks it to the smallest version that still works, and it&#x27;s exported as a pytest suite and GitHub Action for CI</li></ol>
+<p class="dec"><b>Key decision.</b> Every run is checked with rules, not a model as judge, and the search favors inputs that cause new behavior.</p>
+<p class="stack">Python · Docker · pytest · strace · GitHub Actions</p>
+<div class="links"><a class="btn dark" href="https://github.com/pkravella/reprobe" target="_blank" rel="noopener">See it on GitHub <span aria-hidden="true">↗</span></a></div>
+</div>
+<div class="proj-media">
+<a class="media-link" href="https://github.com/pkravella/reprobe" target="_blank" rel="noopener" aria-label="Open Reprobe"><div class="media">
+<div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>github.com/pkravella/reprobe</span></div>
+<div class="shot"><img src="assets/reprobe.png" alt="Terminal capture or results chart for Reprobe" decoding="async" onerror="this.closest('.proj-detail').classList.add('no-media');this.remove()"><p class="ph">Terminal capture or results chart for Reprobe<br><small>add assets/reprobe.png</small></p></div>
+</div></a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" id="muse">
+<div class="proj-head">
+<div class="proj-name"><h3><button type="button" class="proj-toggle" aria-expanded="false" aria-controls="muse-panel">Muse</button></h3><span class="tag live">Live app</span></div>
+<p class="epi">Clinical trial matching</p>
+<p class="sum">A full stack app that helps cancer patients find the clinical trials they actually qualify for, out of 19k+ open ones.</p>
+<span class="cue" aria-hidden="true"><span class="cue-open">Show details</span><span class="cue-close">Hide details</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</div>
+<div class="proj-panel" id="muse-panel"><div class="proj-panel-in"><div class="proj-detail">
+<div class="proj-text">
+<ul class="nums"><li><b>19k+</b> recruiting trials searched</li><li><b>99.8%</b> precision parsing criteria</li><li><b>7x</b> faster than one trial at a time</li><li><b>150</b> trials ranked per query</li></ul>
+<ol class="steps"><li><b>19k+ open trials.</b> The app searches every trial that is recruiting right now, not a hand picked subset</li><li><b>Parse eligibility.</b> Each trial&#x27;s free text criteria become structured conditions that can be checked against a patient, at 99.8% precision</li><li><b>Parallel matching.</b> The matching pipeline runs across 8 worker threads, 7x faster than checking one trial at a time</li><li><b>Rank.</b> Vector similarity search ranks 150 trials per query by relevance, phase and distance to the patient, so the best options for that patient come first</li></ol>
+<p class="dec"><b>Key decision.</b> Breaking free text eligibility criteria into structured conditions, at 99.8% precision.</p>
+<p class="stack">Next.js · FastAPI · PostgreSQL · Redis · Docker · Vercel · Railway</p>
+<div class="links"><a class="btn dark" href="https://museai.surf/" target="_blank" rel="noopener">Try Muse <span aria-hidden="true">↗</span></a></div>
+</div>
+<div class="proj-media">
+<a class="media-link" href="https://museai.surf/" target="_blank" rel="noopener" aria-label="Open Muse"><div class="media">
+<div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>museai.surf/</span></div>
+<div class="shot"><img src="assets/muse.png" alt="Screenshot of the Muse demo" decoding="async" onerror="this.closest('.proj-detail').classList.add('no-media');this.remove()"><p class="ph">Screenshot of the Muse demo<br><small>add assets/muse.png</small></p></div>
+</div></a>
+</div>
+</div></div></div>
+</article>
+<article class="proj" id="shell">
+<div class="proj-head">
+<div class="proj-name"><h3><button type="button" class="proj-toggle" aria-expanded="false" aria-controls="shell-panel">Custom UNIX Shell</button></h3><span class="tag">Project</span></div>
+<p class="epi">A shell from scratch</p>
+<p class="sum">My own shell in C and C++, with pipes, redirection, subshells and globbing. It beats bash on pipeline stress tests.</p>
+<span class="cue" aria-hidden="true"><span class="cue-open">Show details</span><span class="cue-close">Hide details</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</div>
+<div class="proj-panel" id="shell-panel"><div class="proj-panel-in"><div class="proj-detail">
+<div class="proj-text">
+<ul class="nums"><li><b>20%</b> faster than bash on pipeline stress tests</li><li><b>≤5%</b> off bash&#x27;s speed on globbing</li><li><b>0</b> memory leaks</li></ul>
+<ol class="steps"><li><b>Parse.</b> Each command line is parsed with support for pipelines, I/O redirection, subshells, command substitution and environment variable expansion</li><li><b>Expand globs.</b> Wildcard patterns, including ones that span multiple directory levels, are expanded into matching file names within 5% of bash&#x27;s speed</li><li><b>Execute.</b> Commands run with signal handling and background jobs. On multi stage pipeline stress tests, it runs 20% faster than bash</li><li><b>Clean up.</b> Finished processes are reaped so none are left behind as zombies, and the shell has no memory leaks</li></ol>
+<p class="dec"><b>Key decision.</b> On multi stage pipeline stress tests it runs 20% faster than bash.</p>
+<p class="stack">C · C++</p>
+</div>
+<div class="proj-media">
+<div class="media">
+<div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>local run</span></div>
+<div class="shot"><img src="assets/shell.png" alt="Terminal capture or results chart for Custom UNIX Shell" decoding="async" onerror="this.closest('.proj-detail').classList.add('no-media');this.remove()"><p class="ph">Terminal capture or results chart for Custom UNIX Shell<br><small>add assets/shell.png</small></p></div>
+</div>
+</div>
+</div></div></div>
+</article>
+<article class="proj" id="gnn">
+<div class="proj-head">
+<div class="proj-name"><h3><button type="button" class="proj-toggle" aria-expanded="false" aria-controls="gnn-panel">GNN Insider Trading Detector</button></h3><span class="tag">Project</span></div>
+<p class="epi">Anomaly detection on SEC data</p>
+<p class="sum">A graph neural network that reads SEC filings and flags trades that look like insider trading.</p>
+<span class="cue" aria-hidden="true"><span class="cue-open">Show details</span><span class="cue-close">Hide details</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</div>
+<div class="proj-panel" id="gnn-panel"><div class="proj-panel-in"><div class="proj-detail">
+<div class="proj-text">
+<ul class="nums"><li><b>99.5%</b> loss drop, 48.22 → 0.22</li><li><b>800</b> training epochs</li><li><b>15</b> engineered features</li><li><b>3</b> node types</li></ul>
+<ol class="steps"><li><b>C++ pipeline.</b> Pulls SEC forms and parses them into usable data, with Conan for dependencies</li><li><b>Daily CSVs.</b> The parsed data is written out as one CSV per trading day</li><li><b>Graph.</b> The data becomes a graph with 3 node types and 15 engineered features, so the model sees how things connect instead of a flat table of trades</li><li><b>PyTorch GNN.</b> An anomaly detection model trained for 800 epochs, with loss dropping 99.5% (48.22 → 0.22). It flags trades that look like insider trading</li></ol>
+<p class="dec"><b>Key decision.</b> Modeling SEC filings as a graph with 3 node types, instead of a flat table of trades, and training it for anomaly detection.</p>
+<p class="stack">Python · PyTorch · C++ · PostgreSQL · gRPC · Neo4j · Docker</p>
+</div>
+<div class="proj-media">
+<div class="media">
+<div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>local run</span></div>
+<div class="shot"><img src="assets/gnn.png" alt="Terminal capture or results chart for GNN Insider Trading Detector" decoding="async" onerror="this.closest('.proj-detail').classList.add('no-media');this.remove()"><p class="ph">Terminal capture or results chart for GNN Insider Trading Detector<br><small>add assets/gnn.png</small></p></div>
+</div>
+</div>
+</div></div></div>
+</article>
+</div>
+</section>
+
+<section class="work-sec" aria-labelledby="work-h">
+<h2 id="work-h">Where I've worked</h2>
+<div class="grid work-grid">
+<article class="card work" id="wellsky">
+<div class="body">
+<h3>WellSky</h3>
+<p class="meta"><span class="meta-where">Software Engineer Intern · Overland Park, KS</span><span class="sr"> · </span><span class="meta-when">May to August 2026</span></p>
+<p class="sum">I replaced a bunch of old UiPath bots with a Python platform that runs 200+ hospital data jobs a day.</p>
+<ul class="nums"><li><b>200+</b> jobs a day</li><li><b>95%</b> success rate</li><li><b>80%</b> fewer paid API calls</li><li><b>600</b> tests, 98% coverage</li></ul>
+<ol class="steps"><li><b>Legacy UiPath bots.</b> Replaced with a Python automation platform, 600 tests at 98% coverage</li><li><b>Reads the screen.</b> OpenCV and Tesseract read text off UI screenshots, for apps that have no API</li><li><b>Cheap checks first.</b> A cascade of cheaper detection checks with caching before falling back to a paid API</li><li><b>In production.</b> 200+ medical data entry and transfer jobs a day across hospital systems</li></ol>
+<p class="dec"><b>Key decision.</b> Confirming where things are on screen with cheap checks first cut paid API calls by 80%.</p>
+<p class="stack">Python · OpenCV · Tesseract · pytest</p>
+</div>
+</article><article class="card work" id="bqfg">
+<div class="body">
+<h3>Boiler Quant Finance Group</h3>
+<p class="meta"><span class="meta-where">Software Engineer · West Lafayette, IN</span><span class="sr"> · </span><span class="meta-when">January to May 2026</span></p>
+<p class="sum">I wrote a CUDA options pricer that handles 3.8 million options a second, about 480x faster than the CPU version.</p>
+<ul class="nums"><li><b>3.8M</b> options / sec</li><li><b>~480x</b> vs the CPU</li><li><b>100k+</b> IV solves / sec</li><li><b>&lt;0.001%</b> IV error</li></ul>
+<ol class="steps"><li><b>CRR binomial tree.</b> An options pricing engine in CUDA</li><li><b>One block per contract.</b> Each contract gets its own GPU block</li><li><b>Two kernels.</b> One for parallelism inside each tree, one across options, to keep the GPU busy</li><li><b>Implied volatility.</b> A parallel bisection solver, error under 0.001%</li></ol>
+<p class="dec"><b>Key decision.</b> Splitting the work into two kernels kept the GPU as busy as possible.</p>
+<p class="stack">CUDA · C++ · Python</p>
+</div>
+</article><article class="card work" id="datamine">
+<div class="body">
+<h3>The Data Mine at Purdue</h3>
+<p class="meta"><span class="meta-where">Machine Learning Engineer · West Lafayette, IN</span><span class="sr"> · </span><span class="meta-when">August 2024 to May 2025</span></p>
+<p class="sum">I trained a model to spot weeds in drone photos of farms, then got it running on the drone itself.</p>
+<ul class="nums"><li><b>80%</b> detection accuracy</li><li><b>95%</b> location accuracy</li><li><b>300+</b> images labeled</li><li><b>100+</b> shapefiles converted</li></ul>
+<ol class="steps"><li><b>Label.</b> Hand labeled 300+ raw drone images in Roboflow</li><li><b>Detect.</b> PyTorch object detection on UAV images of farm fields, evaluated with IoU</li><li><b>Locate.</b> A GeoPandas script turns 100+ shapefiles of detections into real coordinates</li><li><b>Deploy.</b> The pipeline runs right on the drone&#x27;s software</li></ol>
+<p class="dec"><b>Key decision.</b> Deploying the pipeline onto the drone&#x27;s software so the model runs right on the drone.</p>
+<p class="stack">PyTorch · Python · GeoPandas · Roboflow</p>
+</div>
+</article>
+</div>
+</section>
+
+<section class="info" aria-label="About, education and skills">
+<div class="about">
+<h4>About</h4>
+<p>I&#x27;m studying computer science and statistics at Purdue, and I graduate in May 2028. I’ve spent a lot of time working with C and C++, doing things such as building my own version of a UNIX shell and doing some work with CUDA and GPU programming. I&#x27;ve also done work in the ML space, deploying models for weed detection in drone imagery and programming my own inference engine. Through all these experiences, I’ve become really interested in distributed systems, machine learning (inference &amp; infrastructure), and high performance software that can handle large amounts of data efficiently.</p><p>This summer I interned at WellSky, where I swapped out a pile of old UiPath bots for a Python platform that now runs hundreds of hospital data jobs a day. Before that I was writing CUDA for Purdue&#x27;s quant club and teaching a model to find weeds in drone photos.</p>
+<h4 class="gap">Reach me</h4>
+<p><a href="mailto:pranithravella@gmail.com">pranithravella@gmail.com</a> · <a href="https://www.linkedin.com/in/pranith-ravella/" target="_blank" rel="noopener">linkedin.com/in/pranith-ravella</a> · <a href="https://github.com/pkravella" target="_blank" rel="noopener">github.com/pkravella</a></p>
+</div>
+<div>
+<h4>Education</h4>
+<p><b>Purdue University</b></p>
+<p>I&#x27;m doing a double major, a B.S. in Computer Science and a B.S. in Mathematical Statistics. I graduate in May 2028.</p>
+<h4 class="gap">Clubs</h4>
+<ul class="chips"><li>Boiler Quant Finance Group</li><li>Machine Learning @ Purdue</li><li>Sports Analytics @ Purdue</li></ul>
+<h4 class="gap">Classes I've taken</h4>
+<ul class="chips"><li>Operating Systems</li><li>Computer Networks</li><li>Data Structures and Algorithms</li><li>Computer Architecture</li><li>Systems Programming</li><li>C Programming</li><li>Linear Algebra</li><li>Discrete Math</li><li>Probability</li><li>Real Analysis</li></ul>
+</div>
+<div>
+<h4>Languages</h4>
+<ul class="chips"><li>C/C++</li><li>Python</li><li>Go</li><li>Java</li><li>SQL</li><li>JavaScript</li><li>TypeScript</li><li>HTML/CSS</li><li>R</li></ul>
+<h4 class="gap">Frameworks</h4>
+<ul class="chips"><li>PyTorch</li><li>gRPC</li><li>FastAPI</li><li>React</li><li>Next.js</li><li>Node.js</li><li>Flask</li><li>Django</li><li>Spring Boot</li><li>JUnit</li><li>OpenTelemetry</li></ul>
+<h4 class="gap">Systems and tools</h4>
+<ul class="chips"><li>CUDA</li><li>Kubernetes</li><li>Kafka</li><li>Docker</li><li>UNIX &amp; Linux</li><li>AWS (EC2, S3, EKS, MSK)</li><li>ClickHouse</li><li>Redis</li><li>MCP</li><li>Git</li><li>Vercel</li><li>Railway</li><li>Heroku</li><li>JupyterLab</li></ul>
+</div>
+</section>
+</main>
+
+<footer>
+<a href="https://github.com/pkravella" target="_blank" rel="noopener">GitHub</a>
+<a href="https://www.linkedin.com/in/pranith-ravella/" target="_blank" rel="noopener">LinkedIn</a>
+<a href="mailto:pranithravella@gmail.com">Email</a>
+</footer>
+</div>
+<script>
+(function(){
+  var cards = [].slice.call(document.querySelectorAll('.proj'));
+  var all = document.querySelector('.expand-all');
+  function isOpen(c){ return c.classList.contains('open'); }
+  function set(c, open){
+    c.classList.toggle('open', open);
+    c.querySelector('.proj-toggle').setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function sync(){ if (all) all.textContent = cards.every(isOpen) ? 'Collapse all' : 'Expand all'; }
+  cards.forEach(function(c){
+    c.querySelector('.proj-toggle').addEventListener('click', function(){ set(c, !isOpen(c)); sync(); });
+  });
+  if (all) all.addEventListener('click', function(){
+    var open = !cards.every(isOpen);
+    cards.forEach(function(c){ set(c, open); });
+    sync();
+  });
+  function fromHash(){
+    var el = location.hash && document.getElementById(location.hash.slice(1));
+    if (el && el.classList.contains('proj')) { set(el, true); sync(); }
+  }
+  fromHash();
+  window.addEventListener('hashchange', fromHash);
+})();
+</script>
+<script>
+/* Visit logging: posts to the same analytics Worker as pranith-website. Fails silently. */
+(function () {
+  var ENDPOINT = 'https://pranith-analytics-collector.pranith-analytics-collector.workers.dev/e';
+  var SITE = 'pranith-website-2';
+
+  function rand() {
+    try { if (self.crypto && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
+    return Math.random().toString(36).slice(2) + Date.now().toString(36);
+  }
+  function keep(store, key) {
+    try {
+      var v = store.getItem(key);
+      if (!v) { v = rand(); store.setItem(key, v); }
+      return v;
+    } catch (e) { return rand(); }
+  }
+
+  var vid = keep(localStorage, '_vid');   // same person across visits
+  var sid = keep(sessionStorage, '_sid'); // one tab visit
+
+  function send(ev, detail, ms) {
+    var body = JSON.stringify({
+      st: SITE, v: vid, s: sid, e: ev,
+      d: detail || null,
+      ms: typeof ms === 'number' ? ms : null,
+      p: location.pathname,
+      r: document.referrer || null,
+      sc: screen.width + 'x' + screen.height
+    });
+    try {
+      var blob = new Blob([body], { type: 'text/plain;charset=UTF-8' });
+      if (navigator.sendBeacon && navigator.sendBeacon(ENDPOINT, blob)) return;
+    } catch (e) {}
+    try {
+      fetch(ENDPOINT, {
+        method: 'POST', body: body, keepalive: true, mode: 'cors',
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' }
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  send('pageview');
+
+  /* time on page: only count while the tab is actually visible */
+  var since = document.hidden ? 0 : Date.now(), dwell = 0, sent = -1;
+  function accrue() { if (since) { dwell += Date.now() - since; since = 0; } }
+  function report() {
+    accrue();
+    if (dwell - sent >= 2000) { sent = dwell; send('end', null, dwell); }
+    if (!document.hidden) since = Date.now();
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) report(); else since = Date.now();
+  });
+  window.addEventListener('pagehide', report);
+
+  /* clicks, plus which project box someone opened. Capture phase runs before
+     the toggle handler, so aria-expanded still shows the state before the click. */
+  document.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest && e.target.closest('a[href], button');
+    if (!el) return;
+    if (el.classList.contains('proj-toggle')) {
+      if (el.getAttribute('aria-expanded') !== 'true') send('card', el.textContent.trim().slice(0, 120));
+      return;
+    }
+    var label = el.tagName === 'A'
+      ? el.getAttribute('href')
+      : (el.id || (el.getAttribute('aria-label') || el.textContent || '').trim());
+    if (label) send('click', label.slice(0, 200));
+  }, true);
+})();
+</script>
+</body>
+</html>
